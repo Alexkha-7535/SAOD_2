@@ -22,7 +22,7 @@ vector<unsigned char> readFile(const string& filename) {
     
     // Проверка успешности открытия
     if (!file) {
-        cerr << "❌ Ошибка: не удалось открыть файл '" << filename << "'" << endl;
+        cerr << " Ошибка: не удалось открыть файл '" << filename << "'" << endl;
         return {};  // Возвращаем пустой вектор при ошибке
     }
     
@@ -39,7 +39,7 @@ vector<unsigned char> readFile(const string& filename) {
     // Читаем всё содержимое файла в буфер
     // reinterpret_cast нужен для работы с байтами как с char
     if (!file.read(reinterpret_cast<char*>(buffer.data()), size)) {
-        cerr << "❌ Ошибка: не удалось прочитать файл" << endl;
+        cerr << " Ошибка: не удалось прочитать файл" << endl;
         return {};
     }
     
@@ -56,7 +56,7 @@ bool writeFile(const string& filename, const vector<unsigned char>& data) {
     ofstream file(filename, ios::binary);
     
     if (!file) {
-        cerr << "❌ Ошибка: не удалось создать файл '" << filename << "'" << endl;
+        cerr << " Ошибка: не удалось создать файл '" << filename << "'" << endl;
         return false;
     }
     
@@ -114,7 +114,7 @@ int main() {
     
     // Проверка корректности ввода
     if (mode != 'e' && mode != 'd') {
-        cerr << "❌ Ошибка: неверный режим. Используйте 'e' или 'd'" << endl;
+        cerr << " Ошибка: неверный режим. Используйте 'e' или 'd'" << endl;
         return 1;
     }
     
@@ -136,7 +136,7 @@ int main() {
         return 1;
     }
     
-    cout << "\n📊 Статистика:" << endl;
+    cout << "\nСтатистика:" << endl;
     cout << "  Размер входных данных: " << inputData.size() << " байт" << endl;
     
     // -------------------------------------------------------------------------
@@ -164,7 +164,7 @@ int main() {
              << "%" << endl;
         
         // Вывод первых байтов для визуальной проверки
-        cout << "\n🔍 Первые байты закодированных данных (hex):" << endl;
+        cout << "\n Первые байты закодированных данных (hex):" << endl;
         printHex(encodedData.data(), encodedLen);
         
         // -----------------------------------------------------------------
@@ -172,9 +172,9 @@ int main() {
         // -----------------------------------------------------------------
         // Исключаем последний байт (завершающий маркер 0) из проверки
         if (check(encodedData.data(), encodedLen - 1, 0)) {
-            cout << "✅ Проверка пройдена: байт 0 отсутствует в данных" << endl;
+            cout << "Проверка пройдена: байт 0 отсутствует в данных" << endl;
         } else {
-            cout << "❌ ОШИБКА: байт 0 найден в закодированных данных!" << endl;
+            cout << " ОШИБКА: байт 0 найден в закодированных данных!" << endl;
             return 1;
         }
         
@@ -185,7 +185,7 @@ int main() {
         encodedData.resize(encodedLen);
         
         if (writeFile(outputFile, encodedData)) {
-            cout << "✅ Данные успешно сохранены в файл: " << outputFile << endl;
+            cout << " Данные успешно сохранены в файл: " << outputFile << endl;
         }
         
     } else {
@@ -207,7 +207,7 @@ int main() {
         cout << "  Размер декодированных данных: " << decodedLen << " байт" << endl;
         
         // Вывод первых байтов для визуальной проверки
-        cout << "\n🔍 Первые байты декодированных данных (hex):" << endl;
+        cout << "\n Первые байты декодированных данных (hex):" << endl;
         printHex(decodedData.data(), decodedLen);
         
         // -----------------------------------------------------------------
@@ -216,7 +216,7 @@ int main() {
         decodedData.resize(decodedLen);
         
         if (writeFile(outputFile, decodedData)) {
-            cout << "✅ Данные успешно сохранены в файл: " << outputFile << endl;
+            cout << " Данные успешно сохранены в файл: " << outputFile << endl;
         }
     }
     
@@ -259,9 +259,9 @@ int main() {
     // -----------------------------------------------------------------
     if (decodedLen == testLen && 
         memcmp(testStr, testDecoded.data(), testLen) == 0) {
-        cout << "✅ ТЕСТ ПРОЙДЕН: данные восстановлены бит-в-бит!" << endl;
+        cout << " ТЕСТ ПРОЙДЕН: данные восстановлены бит-в-бит!" << endl;
     } else {
-        cout << "❌ ТЕСТ НЕ ПРОЙДЕН: расхождение в данных!" << endl;
+        cout << " ТЕСТ НЕ ПРОЙДЕН: расхождение в данных!" << endl;
         return 1;
     }
     
